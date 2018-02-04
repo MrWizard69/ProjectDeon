@@ -1,0 +1,40 @@
+
+{
+    "name": "",
+    "questions": [
+        {
+            "questionKeys": "",
+            "question": "",
+            "positive": [],
+            "negative": []
+        },
+        {
+            "questionKeys": "",
+            "question": "",
+            "positive": [],
+            "negative": []
+        }
+    ],
+    "responses":[
+        {
+            "id": 0,
+            "respond": "",
+            "emote": ""
+        },
+        {
+            "id": 1,
+            "respond": "",
+            "emote": ""
+        }
+    ],
+    "comments":[
+        {
+            "comment": "",
+            "emote": ""
+        },
+        {
+            "comment": "",
+            "emote": ""
+        }
+    ]
+}
