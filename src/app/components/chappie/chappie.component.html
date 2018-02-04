@@ -1,0 +1,52 @@
+<h1>Chappie V2</h1>
+
+<div class="SpeechRec">
+    <div id="info">
+      <h4 id="info_start">
+        Click on the Listen Button and say whatever you like.
+      </h4>
+      <h4 id="info_speak_now" style="display:none">
+        Speak now.
+      </h4>
+      <h4 id="info_no_speech" style="display:none">
+        No speech was detected. You may need to adjust your <a href=
+        "//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">microphone
+        settings</a>.
+      </h4>
+      <h4 id="info_no_microphone" style="display:none">
+        No microphone was found. Ensure that a microphone is installed and that
+        <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+        microphone settings</a> are configured correctly.
+      </h4>
+      <h4 id="info_allow" style="display:none">
+        Click the "Allow" button above to enable your microphone.
+      </h4>
+      <h4 id="info_denied" style="display:none">
+        Permission to use microphone was denied.
+      </h4>
+      <p id="info_blocked" style="display:none">
+        Permission to use microphone is blocked. To change, go to
+        chrome://settings/contentExceptions#media-stream
+      </p>
+      <h4 id="info_upgrade" style="display:none">
+        Web Speech API is not supported by this browser. Upgrade to <a href=
+        "//www.google.com/chrome">Chrome</a> version 25 or later.
+      </h4>
+    </div>
+    <div id="div_start">
+      <button id="start_button">Listen</button>
+    </div>
+    <div id="results">
+      <span class="final" id="final_span"></span> <span class="interim" id=
+      "interim_span"></span>
+    </div>
+    <div class="compact marquee" id="div_language">
+      
+      <select id="select_language">
+        </select>&nbsp;&nbsp; <select id="select_dialect">
+        </select>
+    </div>
+  </div>
+
+  <p id="info1">You can say, 'RobotsName repeat after me'. To stop say, 'stop copying me'</p>
+  <p id="info2">You can say, 'RobotsName speak freely'. To stop say, 'stop talking'</p>

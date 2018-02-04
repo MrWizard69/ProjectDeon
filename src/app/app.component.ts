@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  //git commands
+  //git init <-- starts looking for new changes. used before you work
+  //git add . <-- grabs all the new stuff
+  //git commit -m "first commit"
+  //git push -u origin master
 }
