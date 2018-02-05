@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DeepThoughtService } from './chappie.service';
 
 
 @Component({
@@ -9,10 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class ChappieComponent implements OnInit{
     title = 'app';
 
+    constructor(private DeepThought: DeepThoughtService) {}
 
     ngOnInit(){
 
-        let {webkitSpeechRecognition} = (window as any)
+        let {webkitSpeechRecognition} = (window as any);
         let robotName = "";
         let nameIt = false;
         let humanNameIt = false;
@@ -36,6 +38,13 @@ export class ChappieComponent implements OnInit{
         let recognizing = false;
         let start_timestamp;
         let recognition;
+
+        let deepThoughtResponse: any;
+
+        this.DeepThought.getDataObservable().subscribe(
+            data => deepThoughtResponse = data
+        );
+        console.log(deepThoughtResponse);
 
 
         let langs: any =
@@ -169,25 +178,25 @@ export class ChappieComponent implements OnInit{
               }
             };
 
-            setTimeout(function() {
+            // setTimeout(function() {
     
 
-                talkString = "What's up Ya'll.";
-                TalkRobot();
-                //timesTalked = 0;
+            //     talkString = "What's up Ya'll.";
+            //     TalkRobot();
+            //     //timesTalked = 0;
             
-              }, 2000);
+            //   }, 2000);
             
-              setTimeout(function() {
+            //   setTimeout(function() {
                 
             
-                talkString = "Yo, do I have, like, a name or something?";
-                TalkRobot();
-                //timesTalked = 0;
+            //     talkString = "Yo, do I have, like, a name or something?";
+            //     TalkRobot();
+            //     //timesTalked = 0;
             
-                nameIt = true;
+            //     nameIt = true;
             
-              }, 3000); //8000
+            //   }, 3000); //8000
           
             recognition.onend = function() {
               recognizing = false;
@@ -299,11 +308,8 @@ export class ChappieComponent implements OnInit{
                   
           
                 }
-            
-          
               }
-          
-              
+
               //TalkRobot();
               //$("#TalkTime").html("Talked");
           
@@ -339,31 +345,31 @@ export class ChappieComponent implements OnInit{
                 upgrade();
                 return;
               }
-              for (let i = event.resultIndex; i < event.results.length; ++i) {
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
                   final_transcript += event.results[i][0].transcript;
                 } else {
                   interim_transcript += event.results[i][0].transcript;
                 }
-              }
-              //final_transcript = capitalize(final_transcript);
-              document.getElementById('final_span').innerHTML = linebreak(final_transcript);
-              document.getElementById('interim_span').innerHTML = linebreak(interim_transcript);
+            }
+            //final_transcript = capitalize(final_transcript);
+            document.getElementById('final_span').innerHTML = linebreak(final_transcript);
+            document.getElementById('interim_span').innerHTML = linebreak(interim_transcript);
           
-              if(!final_transcript){
+            if(!final_transcript){
           
                 talkString = interim_transcript;
-              }
-              else{
+            }
+            else{
           
                 talkString = final_transcript;
-              }
+            }
           
-              if (final_transcript || interim_transcript) {
+            if (final_transcript || interim_transcript) {
                 showButtons('inline-block');
               }
-            };
-          }
+        };
+    }
 
           function upgrade() {
             start_button.style.visibility = 'hidden';
@@ -456,43 +462,45 @@ export class ChappieComponent implements OnInit{
 
           }
           
-          function TalkRobot(){
+        function TalkRobot(){
           
-              msg = new SpeechSynthesisUtterance();
+            msg = new SpeechSynthesisUtterance();
           
-              msg.voice = voices[10]; // Note: some voices don't support altering params
-              msg.voiceURI = 'native';
-              msg.volume = 1; // 0 to 1
-              msg.rate = .8; // 0.1 to 10
-              msg.pitch = 1; //0 to 2
-              msg.text = talkString;
-              msg.lang = 'en-US';
+            msg.voice = voices[10]; // Note: some voices don't support altering params
+            msg.voiceURI = 'native';
+            msg.volume = 1; // 0 to 1
+            msg.rate = .8; // 0.1 to 10
+            msg.pitch = 1; //0 to 2
+            msg.text = talkString;
+            msg.lang = 'en-US';
           
-              if(timesTalked == 0){
+            if(timesTalked == 0){
           
                 speechSynthesis.speak(msg);
                 timesTalked++;
           
-              }
+            }
           
-              timesTalked = 0;
+            timesTalked = 0;
           
-              //speechSynthesis.speak(msg);
-              //msg = final_transcript;
+            //speechSynthesis.speak(msg);
+            //msg = final_transcript;
               
           
-              //window.speechSynthesis.speak(msg);
+            //window.speechSynthesis.speak(msg);
           
           
-          }
+        }
           
-          function NameHuman(){
+        function NameHuman(){
           
             talkString = "What is your name human?";
           
             TalkRobot();
           
-          }
+        }
+
+        //this does all the input selections
 
         document.getElementById("select_language").addEventListener("change", updateCountry, false);
         document.getElementById("start_button").addEventListener("click", startButton, false);
