@@ -504,6 +504,8 @@ export class ChappieComponent implements OnInit{
 
         document.getElementById("select_language").addEventListener("change", updateCountry, false);
         document.getElementById("start_button").addEventListener("click", startButton, false);
+
+        //document.getElementById("start_button").click(); //this could be used for 'always on' listening
         
         
     }
