@@ -9,8 +9,9 @@ import { DeepThoughtService } from './chappie.service';
 })
 export class ChappieComponent implements OnInit{
     title = 'app';
+    theData: any;
 
-    constructor(private DeepThought: DeepThoughtService) {}
+    constructor(public DeepThought: DeepThoughtService) {}
 
     ngOnInit(){
 
@@ -40,12 +41,6 @@ export class ChappieComponent implements OnInit{
         let recognition;
 
         let deepThoughtResponse: any;
-
-        this.DeepThought.getDataObservable().subscribe(
-            data => deepThoughtResponse = data
-        );
-        console.log(deepThoughtResponse);
-
 
         let langs: any =
         [['Afrikaans',       ['af-ZA']],
@@ -147,7 +142,6 @@ export class ChappieComponent implements OnInit{
           } else {
             start_button.style.display = 'inline-block';
             recognition = new webkitSpeechRecognition();
-            console.log(recognition);
             recognition.continuous = false; // true
             recognition.interimResults = true;
           
@@ -197,6 +191,13 @@ export class ChappieComponent implements OnInit{
             //     nameIt = true;
             
             //   }, 3000); //8000
+
+            this.DeepThought.getJSON().subscribe(data => { //get json start
+                //console.log(data.json());
+                deepThoughtResponse = data.json();
+            //});
+
+            console.log(deepThoughtResponse);
           
             recognition.onend = function() {
               recognizing = false;
@@ -335,6 +336,8 @@ export class ChappieComponent implements OnInit{
               }
              
             };
+
+        }); //get json end
           
             recognition.onresult = function(event) {
               let interim_transcript = '';
