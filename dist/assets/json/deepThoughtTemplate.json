@@ -3,6 +3,11 @@
     "name": "",
     "userName": "",
     "startup": false,
+    "greeting":[
+        {
+            "greet": ""
+        }
+    ],
     "questions": [
         {
             "questionKeys": "",

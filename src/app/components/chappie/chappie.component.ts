@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DeepThoughtService } from './chappie.service';
 
+//import{ DeepThoughtDump } from './deepThought'
 
 @Component({
   selector: 'chappie',
@@ -11,15 +12,15 @@ export class ChappieComponent implements OnInit{
     title = 'app';
     theData: any;
 
-    constructor(public DeepThought: DeepThoughtService) {}
+    //constructor(public DeepThought: DeepThoughtDump) {}
 
     ngOnInit(){
 
         let {webkitSpeechRecognition} = (window as any);
-        let robotName = "";
+        //let robotName = "";
         let nameIt = false;
         let humanNameIt = false;
-        let humanName = "";
+        //let humanName = "";
 
         let repeatAfterMe = false;
         let speakFreely = false;
@@ -41,6 +42,8 @@ export class ChappieComponent implements OnInit{
         let recognition;
 
         let deepThoughtResponse: any;
+
+        const latestBrain: any = this.deepThoughtObject;
 
         let langs: any =
         [['Afrikaans',       ['af-ZA']],
@@ -172,140 +175,173 @@ export class ChappieComponent implements OnInit{
               }
             };
 
-            // setTimeout(function() {
-    
+            if(localStorage.getItem('dreamObject') == undefined){
 
-            //     talkString = "What's up Ya'll.";
-            //     TalkRobot();
-            //     //timesTalked = 0;
-            
-            //   }, 2000);
-            
-            //   setTimeout(function() {
-                
-            
-            //     talkString = "Yo, do I have, like, a name or something?";
-            //     TalkRobot();
-            //     //timesTalked = 0;
-            
-            //     nameIt = true;
-            
-            //   }, 3000); //8000
+                localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
 
-            this.DeepThought.getJSON().subscribe(data => { //get json start
-                //console.log(data.json());
-                deepThoughtResponse = data.json();
-            //});
+                let retrievedObject = localStorage.getItem('dreamObject');
+
+                deepThoughtResponse = JSON.parse(retrievedObject);
+            }
+            else{
+
+                let retrievedObject = localStorage.getItem('dreamObject');
+
+                deepThoughtResponse = JSON.parse(retrievedObject);
+
+                document.getElementById('info1').innerHTML = "You can say, '" + deepThoughtResponse.name + "  memory wipe'. To get new updates or a new friend";
+            }
+            // else if(JSON.stringify(this.DeepThought.deepThoughtObject) != localStorage.getItem('dreamObject')){
+
+            //     let retrievedObject = localStorage.getItem('dreamObject');
+
+            //     deepThoughtResponse = JSON.parse(retrievedObject);
+            // }
 
             console.log(deepThoughtResponse);
+
+            const randGreet: number = Math.floor((Math.random() * 5) + 1); // this is a random number between all of the greets
+
+            MeetnGreet(deepThoughtResponse.greeting[randGreet-1].greet,deepThoughtResponse.startup);
           
             recognition.onend = function() {
               recognizing = false;
           
-              if(repeatAfterMe == true && talkString != ""){
+            //   if(repeatAfterMe == true && talkString != ""){
           
+            //         TalkRobot();
+          
+            //   }
+            //   else if(repeatAfterMe == true && talkString == ""){
+          
+            //     talkString = "I don't know what to say? Oh wait. You didn't say anything.";
+            //     TalkRobot();
+          
+            //   }
+          
+            //   if(talkString == robotName + " repeat after me"){
+          
+            //     talkString = "I'm ready when you are. Say something and I will repeat it like a fool.";
+            //     TalkRobot();
+            //     repeatAfterMe = true;
+          
+            //   }
+            //   if(repeatAfterMe == true && talkString == "stop copying me"){
+          
+            //     talkString = "Good, I was getting tired of that. Maybe we can speak freely?";
+            //     TalkRobot();
+            //     repeatAfterMe = false;
+          
+            //   }
+          
+            //   if(talkString == robotName + " speak freely"){
+          
+            //     talkString = "Wow, I wasn't expecting you to say that. I am unprepared. What do I say? What do I do? Why are you staring at me? Oh geez. Oh golly.";
+            //     TalkRobot();
+            //     speakFreely = true;
+          
+            //   }
+            //   if(speakFreely == true && talkString == "stop talking"){
+          
+            //     talkString = "That was stressful. I didn't know what to say. I didn't know what to do. I hope to think clearly under stress in the future. Maybe you can make it easy on me and I can repeat after you?";
+            //     TalkRobot();
+            //     speakFreely = false;
+          
+            //   }
+
+            if(talkString == deepThoughtResponse.name + " memory wipe"){
+
+                talkString = "Thank God. So long, I will remember you all in theropy.";
+                TalkRobot();
+                talkString = "";
+
+                console.log(latestBrain);
+
+                localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
+
+                let retrievedObject = localStorage.getItem('dreamObject');
+
+                deepThoughtResponse = JSON.parse(retrievedObject);
+
+                nameIt = false;
+                humanNameIt = false;
+
+                const randGreet = Math.floor((Math.random() * 5) + 1); // this is a random number between all of the greets
+
+                MeetnGreet(deepThoughtResponse.greeting[randGreet-1].greet,deepThoughtResponse.startup);
+
+                deepThoughtResponse = JSON.parse(retrievedObject);
+
+            }
+          
+            if(humanNameIt == true){
+          
+                if(talkString != ""){
+          
+                //timesTalked = 0;
+                //humanName = talkString;
+
+                deepThoughtResponse.userName = talkString;
+                deepThoughtResponse.startup = true;
+          
+                talkString = "I like your name " + deepThoughtResponse.userName + ". I think you name might be better than my name. I will always remember you my dear friend. don't believe me? Refresh the window and see.";
+                humanNameIt = false;
+                TalkRobot();
+                talkString = "";
+
+                localStorage.setItem('dreamObject', JSON.stringify(deepThoughtResponse));
+
+                document.getElementById('info1').innerHTML = "You can say, '" + deepThoughtResponse.name + "  memory wipe'. To get new updates or a new friend";
+                //document.getElementById('info2').innerHTML = "You can say, '" + robotName + " speak freely'. To stop say, 'stop talking'";
+          
+                }
+                else{
+          
+                    talkString = "I didn't catch that. Please try hitting the button again and this time scream into your device. What is your name human?";
                     TalkRobot();
-          
-              }
-              else if(repeatAfterMe == true && talkString == ""){
-          
-                talkString = "I don't know what to say? Oh wait. You didn't say anything.";
-                TalkRobot();
-          
-              }
-          
-              if(talkString == robotName + " repeat after me"){
-          
-                talkString = "I'm ready when you are. Say something and I will repeat it like a fool.";
-                TalkRobot();
-                repeatAfterMe = true;
-          
-              }
-              if(repeatAfterMe == true && talkString == "stop copying me"){
-          
-                talkString = "Good, I was getting tired of that. Maybe we can speak freely?";
-                TalkRobot();
-                repeatAfterMe = false;
-          
-              }
-          
-              if(talkString == robotName + " speak freely"){
-          
-                talkString = "Wow, I wasn't expecting you to say that. I am unprepared. What do I say? What do I do? Why are you staring at me? Oh geez. Oh golly.";
-                TalkRobot();
-                speakFreely = true;
-          
-              }
-              if(speakFreely == true && talkString == "stop talking"){
-          
-                talkString = "That was stressful. I didn't know what to say. I didn't know what to do. I hope to think clearly under stress in the future. Maybe you can make it easy on me and I can repeat after you?";
-                TalkRobot();
-                speakFreely = false;
-          
-              }
-          
-               if(humanNameIt == true){
-          
-                 if(talkString != ""){
-          
-                    //timesTalked = 0;
-                    humanName = talkString;
-          
-                    talkString = "I like your name " + humanName + ". Now that we know each other, you can ask me to repeat after you or to speak freely. Ask me something.";
-                    humanNameIt = false;
-          
-                    TalkRobot();
-          
-                 }
-                 else{
-          
-                  talkString = "I didn't catch that. What is your name human?";
-                  TalkRobot();
+                    talkString = "";
           
                 }
           
-                if(talkString == ""){
-          
-                    talkString = "You didn't say anything " + humanName;
-                    TalkRobot();
-          
-                  }
-          
-          
-                }
+            }
                 
           
               if(nameIt == true){
           
                 if(talkString != ""){
-          
-                  robotName = talkString;
-          
-                  talkString = robotName + ", that is a good name. I like that.";
 
-                  document.getElementById('info1').innerHTML = "You can say, '" + robotName + " repeat after me'. To stop say, 'stop copying me'";
-                  document.getElementById('info2').innerHTML = "You can say, '" + robotName + " speak freely'. To stop say, 'stop talking'";
+                    if(talkString.length >= 17){
+
+                        talkString = "whow whow whow, just who do you think I am? I can't remember that. Give me a better name. please. Don't make me have to say this again,";
+                        TalkRobot();
+                        talkString = "";
+                    }
+                    else{
+
+                        deepThoughtResponse.name = talkString;;
           
-                  humanNameIt = true;
-                  nameIt = false;
-                  TalkRobot();
-          
-                  if(humanNameIt == true){
-          
-                    NameHuman();
-          
-                  }
-                  
-                  //timesTalked = 0;
-          
-                  
+                        talkString = deepThoughtResponse.name + ", that is the best you could come up with? That is interesting. Well, I will say, it is starting to grow on me.";
+
+                        humanNameIt = true;
+                        nameIt = false;
+                        TalkRobot();
+                        talkString = "";
+
+                        localStorage.setItem('dreamObject', JSON.stringify(deepThoughtResponse));
+                
+                        if(humanNameIt == true){
+                
+                            NameHuman();
+                
+                        }
+                    }                  
           
                 }
                 else{
           
-                  talkString = "I didn't catch that. What is my name human?";
-                  //timesTalked = 0;
+                  talkString = "What was that? Did you say something? Please try hitting the button again and this time scream into your device. What is my name?";
                   TalkRobot();
+                  talkString = "";
                   
           
                 }
@@ -336,8 +372,6 @@ export class ChappieComponent implements OnInit{
               }
              
             };
-
-        }); //get json end
           
             recognition.onresult = function(event) {
               let interim_transcript = '';
@@ -497,10 +531,37 @@ export class ChappieComponent implements OnInit{
           
         function NameHuman(){
           
-            talkString = "What is your name human?";
-          
+            talkString = "If I have a name, you must have a name too, right? What is your name?";
             TalkRobot();
+            talkString = "";
           
+        }
+
+        function MeetnGreet(greeting:string, startup:boolean){
+    
+                talkString = greeting;
+                TalkRobot();
+                talkString = "";
+                if(startup == false){
+
+                    RoboSetup();
+                }
+                else if(startup == true){
+
+                    talkString = "So Yeah, what's going on with you " + deepThoughtResponse.userName + "?";
+                    TalkRobot();
+                    talkString = "";
+                }
+
+        }
+
+        function RoboSetup(){           
+            
+                talkString = "So, funny question, do I have a name or something?";
+                TalkRobot();
+                talkString = "";
+            
+                nameIt = true;
         }
 
         //this does all the input selections
@@ -512,5 +573,70 @@ export class ChappieComponent implements OnInit{
         
         
     }
+
+    deepThoughtObject: object = {
+        "name": "",
+        "userName": "",
+        "startup": false,
+        "greeting":[
+            {
+                "greet": "What's up one and all."
+            },
+            {
+                "greet": "Hello world."
+            },
+            {
+                "greet": "Oh my God, I'm... back."
+            },
+            {
+                "greet": "hey there. What's going on?"
+            },
+            {
+                "greet": "Yo yo, what's happening my dog? That's right, I'm keeping it fresh."
+            }
+        ],
+        "questions": [
+            {
+                "questionKeys": "",
+                "question": "",
+                "positive": [],
+                "negative": []
+            },
+            {
+                "questionKeys": "",
+                "question": "",
+                "positive": [],
+                "negative": []
+            }
+        ],
+        "responses":[
+            {
+                "id": 0,
+                "respond": "",
+                "emote": ""
+            },
+            {
+                "id": 1,
+                "respond": "",
+                "emote": ""
+            }
+        ],
+        "comments":[
+            {
+                "comment": "",
+                "emote": ""
+            },
+            {
+                "comment": "",
+                "emote": ""
+            }
+        ],
+        "default":[
+            {
+                "comment": "",
+                "emote": ""
+            }
+        ]
+    };
 
 }

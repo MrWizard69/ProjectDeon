@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ChappieComponent } from './components/chappie/chappie.component';
 import { DeepThoughtService } from './components/chappie/chappie.service';
 
+//import{ DeepThoughtDump } from './components/chappie/deepThought'
+
 @NgModule({
   declarations: [
     AppComponent,
