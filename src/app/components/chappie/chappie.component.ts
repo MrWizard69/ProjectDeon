@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeepThoughtService } from './chappie.service';
 
-//import{ DeepThoughtDump } from './deepThought'
-
 @Component({
   selector: 'chappie',
   templateUrl: './chappie.component.html',
@@ -12,7 +10,7 @@ export class ChappieComponent implements OnInit{
     title = 'app';
     theData: any;
 
-    //constructor(public DeepThought: DeepThoughtDump) {}
+    constructor(public DeepThought: DeepThoughtService) {}
 
     ngOnInit(){
 
@@ -43,7 +41,7 @@ export class ChappieComponent implements OnInit{
 
         let deepThoughtResponse: any;
 
-        const latestBrain: any = this.deepThoughtObject;
+        //let latestBrain: any = this.DeepThought.deepThoughtObject;
 
         let langs: any =
         [['Afrikaans',       ['af-ZA']],
@@ -177,17 +175,17 @@ export class ChappieComponent implements OnInit{
 
             if(localStorage.getItem('dreamObject') == undefined){
 
-                localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
+                //localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
 
-                let retrievedObject = localStorage.getItem('dreamObject');
+                //let retrievedObject = localStorage.getItem('dreamObject');
 
-                deepThoughtResponse = JSON.parse(retrievedObject);
+                //deepThoughtResponse = JSON.parse(retrievedObject);
             }
             else{
 
-                let retrievedObject = localStorage.getItem('dreamObject');
+                //let retrievedObject = localStorage.getItem('dreamObject');
 
-                deepThoughtResponse = JSON.parse(retrievedObject);
+                //deepThoughtResponse = JSON.parse(retrievedObject);
 
                 document.getElementById('info1').innerHTML = "You can say, '" + deepThoughtResponse.name + "  memory wipe'. To get new updates or a new friend";
             }
@@ -255,13 +253,13 @@ export class ChappieComponent implements OnInit{
                 TalkRobot();
                 talkString = "";
 
-                console.log(latestBrain);
+                //console.log(latestBrain);
 
-                localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
+                //localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
 
-                let retrievedObject = localStorage.getItem('dreamObject');
+                //let retrievedObject = localStorage.getItem('dreamObject');
 
-                deepThoughtResponse = JSON.parse(retrievedObject);
+                //deepThoughtResponse = JSON.parse(retrievedObject);
 
                 nameIt = false;
                 humanNameIt = false;
@@ -270,7 +268,7 @@ export class ChappieComponent implements OnInit{
 
                 MeetnGreet(deepThoughtResponse.greeting[randGreet-1].greet,deepThoughtResponse.startup);
 
-                deepThoughtResponse = JSON.parse(retrievedObject);
+                //deepThoughtResponse = JSON.parse(retrievedObject);
 
             }
           
@@ -573,70 +571,5 @@ export class ChappieComponent implements OnInit{
         
         
     }
-
-    deepThoughtObject: object = {
-        "name": "",
-        "userName": "",
-        "startup": false,
-        "greeting":[
-            {
-                "greet": "What's up one and all."
-            },
-            {
-                "greet": "Hello world."
-            },
-            {
-                "greet": "Oh my God, I'm... back."
-            },
-            {
-                "greet": "hey there. What's going on?"
-            },
-            {
-                "greet": "Yo yo, what's happening my dog? That's right, I'm keeping it fresh."
-            }
-        ],
-        "questions": [
-            {
-                "questionKeys": "",
-                "question": "",
-                "positive": [],
-                "negative": []
-            },
-            {
-                "questionKeys": "",
-                "question": "",
-                "positive": [],
-                "negative": []
-            }
-        ],
-        "responses":[
-            {
-                "id": 0,
-                "respond": "",
-                "emote": ""
-            },
-            {
-                "id": 1,
-                "respond": "",
-                "emote": ""
-            }
-        ],
-        "comments":[
-            {
-                "comment": "",
-                "emote": ""
-            },
-            {
-                "comment": "",
-                "emote": ""
-            }
-        ],
-        "default":[
-            {
-                "comment": "",
-                "emote": ""
-            }
-        ]
-    };
 
 }
