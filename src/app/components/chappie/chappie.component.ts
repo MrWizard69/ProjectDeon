@@ -200,11 +200,16 @@ export class ChappieComponent implements OnInit{
 
             console.log(deepThoughtResponse);
 
-            const randGreet: number = Math.floor((Math.random() * deepThoughtResponse.aiGreeting.length) + 1); // this is a random number between all of the greets
+            if('speechSynthesis' in window){
 
-            setTimeout(() => {
-              MeetnGreet(deepThoughtResponse.aiGreeting[randGreet-1].greet,deepThoughtResponse.startup);
-            }, 2000);
+              const randGreet: number = Math.floor((Math.random() * deepThoughtResponse.aiGreeting.length) + 1); // this is a random number between all of the greets
+
+              setTimeout(() => {
+                MeetnGreet(deepThoughtResponse.aiGreeting[randGreet-1].greet,deepThoughtResponse.startup);
+              }, 2000);
+
+              document.getElementById('info2').innerHTML = "Speech is good";
+            }
           
             recognition.onend = function() {
               recognizing = false;
@@ -515,7 +520,7 @@ export class ChappieComponent implements OnInit{
           
             //if(timesTalked == 0){
           
-                speechSynthesis.speak(msg);
+            speechSynthesis.speak(msg);
                 //timesTalked++;
           
             //}
