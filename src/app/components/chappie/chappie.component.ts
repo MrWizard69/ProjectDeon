@@ -202,7 +202,9 @@ export class ChappieComponent implements OnInit{
 
             const randGreet: number = Math.floor((Math.random() * deepThoughtResponse.aiGreeting.length) + 1); // this is a random number between all of the greets
 
-            MeetnGreet(deepThoughtResponse.aiGreeting[randGreet-1].greet,deepThoughtResponse.startup);
+            setTimeout(() => {
+              MeetnGreet(deepThoughtResponse.aiGreeting[randGreet-1].greet,deepThoughtResponse.startup);
+            }, 2000);
           
             recognition.onend = function() {
               recognizing = false;
@@ -511,12 +513,12 @@ export class ChappieComponent implements OnInit{
             msg.text = talkString;
             msg.lang = 'en-US';
           
-            if(timesTalked == 0){
+            //if(timesTalked == 0){
           
                 speechSynthesis.speak(msg);
-                timesTalked++;
+                //timesTalked++;
           
-            }
+            //}
           
             timesTalked = 0;
           
