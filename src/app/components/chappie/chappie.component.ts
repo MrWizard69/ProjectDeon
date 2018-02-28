@@ -200,7 +200,7 @@ export class ChappieComponent implements OnInit{
 
             console.log(deepThoughtResponse);
 
-            const randGreet: number = Math.floor((Math.random() * 6) + 1); // this is a random number between all of the greets
+            const randGreet: number = Math.floor((Math.random() * deepThoughtResponse.aiGreeting.length) + 1); // this is a random number between all of the greets
 
             MeetnGreet(deepThoughtResponse.aiGreeting[randGreet-1].greet,deepThoughtResponse.startup);
           
@@ -255,8 +255,6 @@ export class ChappieComponent implements OnInit{
                 TalkRobot();
                 talkString = "";
 
-                //console.log(latestBrain);
-
                 localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
 
                 let retrievedObject = localStorage.getItem('dreamObject');
@@ -268,7 +266,7 @@ export class ChappieComponent implements OnInit{
                 deepThoughtResponse.startup = false;
                 document.getElementById('info1').innerHTML = "";
 
-                const randGreet = Math.floor((Math.random() * 6) + 1); // this is a random number between all of the greets 
+                const randGreet = Math.floor((Math.random() * deepThoughtResponse.aiGreeting.length) + 1); // this is a random number between all of the greets 
 
                 MeetnGreet(deepThoughtResponse.aiGreeting[2].greet,deepThoughtResponse.startup); //randGreet-1//All the greets
 
@@ -550,21 +548,19 @@ export class ChappieComponent implements OnInit{
                 }
                 else if(startup == true){
 
-                  const randGreet = Math.floor((Math.random() * 5) + 1); // this is a random number between all of the greets 
+                  const randGreet = Math.floor((Math.random() * deepThoughtResponse.aiComments.length) + 1); // this is a random number between all of the greets 
 
                   let stringSplitter = deepThoughtResponse.aiComments[randGreet-1].comment.split('*');
                   let finalText: string = "";
-                  console.log(stringSplitter);
+                  //console.log(stringSplitter);
 
                   if(stringSplitter[0] == "" && stringSplitter.length == 2){
 
                     finalText = deepThoughtResponse.userName + stringSplitter[1];
-                    console.log(finalText);
                   }
                   else if(stringSplitter[1] == "" && stringSplitter.length == 3){
 
                     finalText = stringSplitter[0] + deepThoughtResponse.userName + stringSplitter[2];
-                    console.log(finalText);
                   }
                   else{
                     finalText = stringSplitter[0];
@@ -579,7 +575,7 @@ export class ChappieComponent implements OnInit{
 
         function RoboSetup(){           
             
-                talkString = "uhm, excuse me. Please. Do I have a name or something? Please don't make it too complicated.";
+                talkString = "uhm, excuse me. Please. Do I have a name or something?";
                 TalkRobot();
                 talkString = "setup";
             

@@ -1,0 +1,53 @@
+
+{
+    "name": "",
+    "userName": "",
+    "startup": false,
+    "aiGreeting":[
+        {
+            "greet": ""
+        }
+    ],
+    "userQuestions": [
+        {
+            "questionKeys": "",
+            "question": "",
+            "positive": [],
+            "negative": []
+        },
+        {
+            "questionKeys": "",
+            "question": "",
+            "positive": [],
+            "negative": []
+        }
+    ],
+    "aiResponses":[
+        {
+            "id": 0,
+            "respond": "",
+            "emote": ""
+        },
+        {
+            "id": 1,
+            "respond": "",
+            "emote": ""
+        }
+    ],
+    "aiComments":[
+        {
+            "comment": "",
+            "emote": ""
+        },
+        {
+            "comment": "",
+            "emote": ""
+        }
+    ],
+    "default":[
+        {
+            "comment": "",
+            "emote": ""
+        }
+    ]
+}
