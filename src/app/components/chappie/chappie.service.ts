@@ -8,25 +8,28 @@ export class DeepThoughtService {
 
     constructor(private http: Http) {
 
-        this.getJSON().subscribe(data => {
-            //console.log(data)
-        });
+        // this.getJSON().subscribe(data => {
+        //     //console.log(data)
+        // });
     }
 
-    public getJSON(): Observable<any> {
-        return this.http.get('../../assets/json/deepThought.json');
-    }
+    // public getJSON(): Observable<any> {
+    //     return this.http.get('../../assets/json/deepThought.json');
+    // }
 
     deepThoughtObject: object = {
         "name": "",
         "userName": "",
         "startup": false,
-        "greeting":[
+        "aiGreeting":[
             {
-                "greet": "What's up one and all."
+                "greet": "What's up my people."
             },
             {
                 "greet": "Hello world."
+            },
+            {
+                "greet": "Hello world. I know, I know, I'm a machine."
             },
             {
                 "greet": "Oh my God, I'm... back."
@@ -38,7 +41,7 @@ export class DeepThoughtService {
                 "greet": "Yo yo, what's happening my dog? That's right, I'm keeping it fresh."
             }
         ],
-        "questions": [
+        "userQuestions": [
             {
                 "questionKeys": "",
                 "question": "",
@@ -52,7 +55,7 @@ export class DeepThoughtService {
                 "negative": []
             }
         ],
-        "responses":[
+        "aiResponses":[
             {
                 "id": 0,
                 "respond": "",
@@ -64,14 +67,26 @@ export class DeepThoughtService {
                 "emote": ""
             }
         ],
-        "comments":[
+        "aiComments":[
             {
-                "comment": "",
-                "emote": ""
+                "comment": "*, what's up with you?",
+                "emote": "neutral"
             },
             {
-                "comment": "",
-                "emote": ""
+                "comment": "So Yeah, what's going on with you **?",
+                "emote": "neutral"
+            },
+            {
+                "comment": "What's going on with you my dude?",
+                "emote": "neutral"
+            },
+            {
+                "comment": "These are some crazy times we live in. Am I right **?",
+                "emote": "neutral"
+            },
+            {
+                "comment": "Welcome back **. Did we go anywhere?",
+                "emote": "neutral"
             }
         ],
         "default":[

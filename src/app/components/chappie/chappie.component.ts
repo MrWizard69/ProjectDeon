@@ -7,8 +7,7 @@ import { DeepThoughtService } from './chappie.service';
   styleUrls: ['./chappie.component.css']
 })
 export class ChappieComponent implements OnInit{
-    title = 'app';
-    theData: any;
+    title = 'Project Deon';
 
     constructor(public DeepThought: DeepThoughtService) {}
 
@@ -41,7 +40,7 @@ export class ChappieComponent implements OnInit{
 
         let deepThoughtResponse: any;
 
-        //let latestBrain: any = this.DeepThought.deepThoughtObject;
+        let latestBrain: any = this.DeepThought.deepThoughtObject;
 
         let langs: any =
         [['Afrikaans',       ['af-ZA']],
@@ -175,19 +174,22 @@ export class ChappieComponent implements OnInit{
 
             if(localStorage.getItem('dreamObject') == undefined){
 
-                //localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
+                localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
 
-                //let retrievedObject = localStorage.getItem('dreamObject');
+                let retrievedObject = localStorage.getItem('dreamObject');
 
-                //deepThoughtResponse = JSON.parse(retrievedObject);
+                deepThoughtResponse = JSON.parse(retrievedObject);
             }
             else{
 
-                //let retrievedObject = localStorage.getItem('dreamObject');
+                let retrievedObject = localStorage.getItem('dreamObject');
 
-                //deepThoughtResponse = JSON.parse(retrievedObject);
+                deepThoughtResponse = JSON.parse(retrievedObject);
 
-                document.getElementById('info1').innerHTML = "You can say, '" + deepThoughtResponse.name + "  memory wipe'. To get new updates or a new friend";
+                if(deepThoughtResponse.name != "" && deepThoughtResponse.userName != ""){
+
+                  document.getElementById('info1').innerHTML = "You can say, '" + deepThoughtResponse.name + "  memory wipe'. To get new updates or a new friend";
+                }
             }
             // else if(JSON.stringify(this.DeepThought.deepThoughtObject) != localStorage.getItem('dreamObject')){
 
@@ -198,9 +200,9 @@ export class ChappieComponent implements OnInit{
 
             console.log(deepThoughtResponse);
 
-            const randGreet: number = Math.floor((Math.random() * 5) + 1); // this is a random number between all of the greets
+            const randGreet: number = Math.floor((Math.random() * 6) + 1); // this is a random number between all of the greets
 
-            MeetnGreet(deepThoughtResponse.greeting[randGreet-1].greet,deepThoughtResponse.startup);
+            MeetnGreet(deepThoughtResponse.aiGreeting[randGreet-1].greet,deepThoughtResponse.startup);
           
             recognition.onend = function() {
               recognizing = false;
@@ -255,26 +257,26 @@ export class ChappieComponent implements OnInit{
 
                 //console.log(latestBrain);
 
-                //localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
+                localStorage.setItem('dreamObject', JSON.stringify(latestBrain));
 
-                //let retrievedObject = localStorage.getItem('dreamObject');
+                let retrievedObject = localStorage.getItem('dreamObject');
 
-                //deepThoughtResponse = JSON.parse(retrievedObject);
+                deepThoughtResponse = JSON.parse(retrievedObject);
 
                 nameIt = false;
                 humanNameIt = false;
+                deepThoughtResponse.startup = false;
+                document.getElementById('info1').innerHTML = "";
 
-                const randGreet = Math.floor((Math.random() * 5) + 1); // this is a random number between all of the greets
+                const randGreet = Math.floor((Math.random() * 6) + 1); // this is a random number between all of the greets 
 
-                MeetnGreet(deepThoughtResponse.greeting[randGreet-1].greet,deepThoughtResponse.startup);
-
-                //deepThoughtResponse = JSON.parse(retrievedObject);
+                MeetnGreet(deepThoughtResponse.aiGreeting[2].greet,deepThoughtResponse.startup); //randGreet-1//All the greets
 
             }
           
             if(humanNameIt == true){
-          
-                if(talkString != ""){
+             
+              if(talkString != ""){
           
                 //timesTalked = 0;
                 //humanName = talkString;
@@ -282,7 +284,7 @@ export class ChappieComponent implements OnInit{
                 deepThoughtResponse.userName = talkString;
                 deepThoughtResponse.startup = true;
           
-                talkString = "I like your name " + deepThoughtResponse.userName + ". I think you name might be better than my name. I will always remember you my dear friend. don't believe me? Refresh the window and see.";
+                talkString = "I like your name " + deepThoughtResponse.userName + ". I think you name might be better than my name. I will always remember you my dear friend. don't believe me? Refresh the window and see. Try refreshing multiple times. I say lots of things. It will be fun!";
                 humanNameIt = false;
                 TalkRobot();
                 talkString = "";
@@ -301,49 +303,51 @@ export class ChappieComponent implements OnInit{
           
                 }
           
-            }
+            }         
+            if(nameIt == true){
+
+              if(talkString == "setup"){
+                talkString = "";
+                TalkRobot();
+              }
+              else if(talkString != ""){
+
+                  if(talkString.length >= 17){
+
+                      talkString = "whow whow whow, just who do you think I am? Smart guy? I can't remember that. Give me a better name. please. Don't make me have to say this again,";
+                      TalkRobot();
+                      talkString = "";
+                  }
+                  else{
+
+                      deepThoughtResponse.name = talkString;;
+          
+                      talkString = deepThoughtResponse.name + ", that is the best you could come up with? That is interesting. Well, I will say, it is starting to grow on me.";
+
+                      humanNameIt = true;
+                      nameIt = false;
+                      TalkRobot();
+                      talkString = "";
+
+                      localStorage.setItem('dreamObject', JSON.stringify(deepThoughtResponse));
                 
-          
-              if(nameIt == true){
-          
-                if(talkString != ""){
-
-                    if(talkString.length >= 17){
-
-                        talkString = "whow whow whow, just who do you think I am? I can't remember that. Give me a better name. please. Don't make me have to say this again,";
-                        TalkRobot();
-                        talkString = "";
-                    }
-                    else{
-
-                        deepThoughtResponse.name = talkString;;
-          
-                        talkString = deepThoughtResponse.name + ", that is the best you could come up with? That is interesting. Well, I will say, it is starting to grow on me.";
-
-                        humanNameIt = true;
-                        nameIt = false;
-                        TalkRobot();
-                        talkString = "";
-
-                        localStorage.setItem('dreamObject', JSON.stringify(deepThoughtResponse));
+                      if(humanNameIt == true){
                 
-                        if(humanNameIt == true){
+                          NameHuman();
                 
-                            NameHuman();
-                
-                        }
-                    }                  
+                      }
+                  }                  
           
-                }
-                else{
+              }
+              else{
           
-                  talkString = "What was that? Did you say something? Please try hitting the button again and this time scream into your device. What is my name?";
-                  TalkRobot();
-                  talkString = "";
+                talkString = "What was that? Did you say something? Please try hitting the button again and this time scream into your device. What is my name?";
+                TalkRobot();
+                talkString = "";
                   
           
-                }
               }
+            }
 
               //TalkRobot();
               //$("#TalkTime").html("Talked");
@@ -546,18 +550,38 @@ export class ChappieComponent implements OnInit{
                 }
                 else if(startup == true){
 
-                    talkString = "So Yeah, what's going on with you " + deepThoughtResponse.userName + "?";
-                    TalkRobot();
-                    talkString = "";
+                  const randGreet = Math.floor((Math.random() * 5) + 1); // this is a random number between all of the greets 
+
+                  let stringSplitter = deepThoughtResponse.aiComments[randGreet-1].comment.split('*');
+                  let finalText: string = "";
+                  console.log(stringSplitter);
+
+                  if(stringSplitter[0] == "" && stringSplitter.length == 2){
+
+                    finalText = deepThoughtResponse.userName + stringSplitter[1];
+                    console.log(finalText);
+                  }
+                  else if(stringSplitter[1] == "" && stringSplitter.length == 3){
+
+                    finalText = stringSplitter[0] + deepThoughtResponse.userName + stringSplitter[2];
+                    console.log(finalText);
+                  }
+                  else{
+                    finalText = stringSplitter[0];
+                  }
+
+                  talkString = finalText;
+                  TalkRobot();
+                  talkString = "";
                 }
 
         }
 
         function RoboSetup(){           
             
-                talkString = "So, funny question, do I have a name or something?";
+                talkString = "uhm, excuse me. Please. Do I have a name or something? Please don't make it too complicated.";
                 TalkRobot();
-                talkString = "";
+                talkString = "setup";
             
                 nameIt = true;
         }

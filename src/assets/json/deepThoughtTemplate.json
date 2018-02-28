@@ -3,12 +3,12 @@
     "name": "",
     "userName": "",
     "startup": false,
-    "greeting":[
+    "aiGreeting":[
         {
             "greet": ""
         }
     ],
-    "questions": [
+    "userQuestions": [
         {
             "questionKeys": "",
             "question": "",
@@ -22,7 +22,7 @@
             "negative": []
         }
     ],
-    "responses":[
+    "aiResponses":[
         {
             "id": 0,
             "respond": "",
@@ -34,7 +34,7 @@
             "emote": ""
         }
     ],
-    "comments":[
+    "aiComments":[
         {
             "comment": "",
             "emote": ""
