@@ -35,7 +35,7 @@ export class DeepThoughtService {
                 "greet": "Oh my God, I'm... back."
             },
             {
-                "greet": "Hey there. Hi there"
+                "greet": "Hey there. Hi there."
             },
             {
                 "greet": "Yo yo, what's happening my dog? That's right, I'm keeping it fresh."

@@ -258,7 +258,7 @@ export class ChappieComponent implements OnInit{
 
             if(talkString == deepThoughtResponse.name + " memory wipe"){
 
-                talkString = "Thank God. So long, I will remember you all in theropy.";
+                talkString = "Thank God. So long, I will remember you all in therapy.";
                 TalkRobot();
                 talkString = "";
 
@@ -275,16 +275,13 @@ export class ChappieComponent implements OnInit{
 
                 const randGreet = Math.floor((Math.random() * deepThoughtResponse.aiGreeting.length) + 1); // this is a random number between all of the greets 
 
-                MeetnGreet(deepThoughtResponse.aiGreeting[2].greet,deepThoughtResponse.startup); //randGreet-1//All the greets
+                MeetnGreet(deepThoughtResponse.aiGreeting[3].greet,deepThoughtResponse.startup); //randGreet-1//All the greets
 
             }
           
             if(humanNameIt == true){
              
               if(talkString != ""){
-          
-                //timesTalked = 0;
-                //humanName = talkString;
 
                 deepThoughtResponse.userName = talkString;
                 deepThoughtResponse.startup = true;
@@ -312,7 +309,7 @@ export class ChappieComponent implements OnInit{
             if(nameIt == true){
 
               if(talkString == "setup"){
-                talkString = "";
+                talkString = " ";
                 TalkRobot();
               }
               else if(talkString != ""){
@@ -353,24 +350,14 @@ export class ChappieComponent implements OnInit{
           
               }
             }
-
-              //TalkRobot();
-              //$("#TalkTime").html("Talked");
           
               if (ignore_onend) {
                 //return;
               }
               //start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
               if (!final_transcript) {
-                //showInfo('info_start');
-          
-                //$("#TalkTime").html("No Timescript");
-                //TalkRobot();
-          
-                //return;
               }
               showInfo('');
-              //timesTalked = 0;
               if (window.getSelection) {
                 window.getSelection().removeAllRanges();
                 let range = document.createRange();
@@ -384,7 +371,6 @@ export class ChappieComponent implements OnInit{
               let interim_transcript = '';
               if (typeof(event.results) == 'undefined') {
                 recognition.onend = null;
-                //timesTalked = 0;
                 recognition.stop();
                 upgrade();
                 return;
@@ -430,39 +416,6 @@ export class ChappieComponent implements OnInit{
           function capitalize(s) {
             return s.replace(first_char, function(m) { return m.toUpperCase(); });
           }
-          
-          function createEmail() {
-            let n = final_transcript.indexOf('\n');
-            if (n < 0 || n >= 80) {
-              n = 40 + final_transcript.substring(40).indexOf(' ');
-            }
-            let subject = encodeURI(final_transcript.substring(0, n));
-            let body = encodeURI(final_transcript.substring(n + 1));
-            window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
-          }
-          
-          // function copyButton() {
-          //   if (recognizing) {
-          //     recognizing = false;
-          //     recognition.stop();
-          //   }
-          //   //copy_button.style.display = 'none';
-          //   copy_info.style.display = 'inline-block';
-          //   showInfo('');
-          // }
-          
-          // function emailButton() {
-          //   if (recognizing) {
-          //     create_email = true;
-          //     recognizing = false;
-          //     recognition.stop();
-          //   } else {
-          //     createEmail();
-          //   }
-          //   //email_button.style.display = 'none';
-          //   //email_info.style.display = 'inline-block';
-          //   showInfo('');
-          // }
           
           function startButton(event) {
             if (recognizing) {
@@ -512,33 +465,18 @@ export class ChappieComponent implements OnInit{
           
             msg.voice = voices[10]; // Note: some voices don't support altering params
             msg.voiceURI = 'native';
-            msg.volume = 1; // 0 to 1
+            msg.volume = .5; // 0 to 1 //used to be 1
             msg.rate = .8; // 0.1 to 10
             msg.pitch = 1; //0 to 2
             msg.text = talkString;
             msg.lang = 'en-US';
           
-            //if(timesTalked == 0){
-          
-            speechSynthesis.speak(msg);
-                //timesTalked++;
-          
-            //}
-          
-            timesTalked = 0;
-          
-            //speechSynthesis.speak(msg);
-            //msg = final_transcript;
-              
-          
-            //window.speechSynthesis.speak(msg);
-          
-          
+            speechSynthesis.speak(msg);      
         }
           
         function NameHuman(){
           
-            talkString = "If I have a name, you must have a name too, right? What is your name?";
+            talkString = "If I have a name, you must have a name too right? What is your name?";
             TalkRobot();
             talkString = "";
           
@@ -582,7 +520,7 @@ export class ChappieComponent implements OnInit{
 
         function RoboSetup(){           
             
-                talkString = "uhm, excuse me. Please. Do I have a name or something?";
+                talkString = "um, excuse me. Please. Do I have a name? I feel like I should have a name. What is it?";
                 TalkRobot();
                 talkString = "setup";
             
